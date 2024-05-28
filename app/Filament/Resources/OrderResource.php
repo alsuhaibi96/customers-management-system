@@ -25,8 +25,11 @@ class OrderResource extends Resource
     protected static ?string $model = Order::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Orders Management';
-    protected static ?string $navigationLabel = 'Orders';
+    protected static ?string $navigationGroup = 'إدارة الطلبات';
+    protected static ?string $navigationLabel = 'الطلبات';
+    protected static ?string $label = 'الطلب';
+    protected static ?string $pluralModelLabel = 'الطلب';
+
     protected static ?int $navigationSort = 1;
     public static function form(Form $form): Form
     {
@@ -35,14 +38,21 @@ class OrderResource extends Resource
                 Section::make()->schema([
                     Select::make('customer_id')
                     ->relationship('customer', 'customer_name')
+                    ->label('العميل')
                     ->searchable()
+
                     ->required(),
                     Select::make('product_id')
+                    ->label('المنتج')
                     ->relationship('products', 'name') // Assuming 'name' is the display field for products
                     ->required(),
-                    TextInput::make('price')->required()->numeric(),
-                    TextInput::make('status'),
-                    TextInput::make('city'),
+                    TextInput::make('price')
+                    ->label('السعر')
+                    ->required()->numeric(),
+                    TextInput::make('status')
+                    ->label('الحالة'),
+                    TextInput::make('city')
+                    ->label('المدينة'),
                        
                     ])
                     //
@@ -54,9 +64,9 @@ class OrderResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')->sortable()->searchable(),
-                TextColumn::make('customer.customer_name')->sortable()->searchable(),
-                TextColumn::make('price')->sortable()->searchable(),
-                TextColumn::make('status')->sortable()->searchable(),
+                TextColumn::make('customer.customer_name')->label('العميل')->sortable()->searchable(),
+                TextColumn::make('price')->label('السعر')->sortable()->searchable(),
+                TextColumn::make('status')->label('الحالة')->sortable()->searchable(),
 
             ])
             ->filters([

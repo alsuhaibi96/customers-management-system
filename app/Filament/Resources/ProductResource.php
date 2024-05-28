@@ -18,6 +18,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use PhpParser\Node\Stmt\Label;
 
 class ProductResource extends Resource
 {
@@ -25,21 +26,24 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationGroup = 'Product Management';
-    protected static ?string $navigationLabel = 'Products';
+    protected static ?string $navigationGroup = 'إدارة المنتجات';
+    protected static ?string $navigationLabel = 'المنتجات';
+    protected static ?string $label = 'منتج';
+    protected static ?string $pluralModelLabel = 'المنتجات';
     protected static ?int $navigationSort = 1;
     public static function form(Form $form): Form
     {
         return $form
         ->schema([
             Section::make()->schema([
-                TextInput::make('name')->required(),
+                TextInput::make('name')->Label('اسم المنتج')->required(),
                 FileUpload::make('image')
+                ->Label('الصورة')
                 ->image()
                 ->imageEditor()
                 ->maxSize(1024),
-                TextInput::make('reviews'),
-                MarkdownEditor::make('description'),
+                TextInput::make('reviews')->Label('التقييم'),
+                MarkdownEditor::make('description')->Label('الوصف'),
 
                 ])
                 //
@@ -50,8 +54,8 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->sortable()->searchable(),
-                ImageColumn::make('image'),
+                TextColumn::make('name')->Label('اسم المنتج')->sortable()->searchable(),
+                ImageColumn::make('image')->Label('الصورة'),
             ])
             ->filters([
                 //

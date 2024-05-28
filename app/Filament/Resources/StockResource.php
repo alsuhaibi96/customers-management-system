@@ -22,8 +22,11 @@ class StockResource extends Resource
     protected static ?string $model = Stock::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Stocks Management';
-    protected static ?string $navigationLabel = 'Stocks';
+    protected static ?string $navigationGroup = 'إدارة المخزون';
+    protected static ?string $navigationLabel = 'المخزون';
+    protected static ?string $pluralModelLabel = 'المخزون';
+    protected static ?string $label = 'مخزون';
+
     protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
@@ -32,10 +35,12 @@ class StockResource extends Resource
             ->schema([
             Section::make()->schema([
                 Select::make('product_id')
+                ->label('المنتج')
                     ->relationship('product', 'name')
                     ->required(),
                 TextInput::make('quantity')
                     ->numeric()
+                    ->label('الكمية')
                     ->required(),
             ])
         ]);
@@ -46,8 +51,8 @@ class StockResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('product.name')->sortable()->searchable(),
-                TextColumn::make('quantity')->sortable(),
+                TextColumn::make('product.name')->label('المنتج')->sortable()->searchable(),
+                TextColumn::make('quantity')->label('الكمية')->sortable(),
             ])
             ->filters([
                 //

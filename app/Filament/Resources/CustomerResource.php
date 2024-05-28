@@ -22,8 +22,11 @@ class CustomerResource extends Resource
     protected static ?string $model = Customer::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
-    protected static ?string $navigationGroup = 'User Management';
-    protected static ?string $navigationLabel = 'Customers';
+    protected static ?string $navigationGroup = 'إدارة العملاء';
+    protected static ?string $navigationLabel = 'العملاء';
+    protected static ?string $pluralModelLabel = 'عميل';
+    protected static ?string $label = 'عميل';
+
     protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
@@ -31,22 +34,22 @@ class CustomerResource extends Resource
         return $form
         ->schema([
             Section::make()->schema([
-                TextInput::make('customer_name')->required(),
-                TextInput::make('serial_number'),
-                TextInput::make('phone_number'),
-                TextInput::make('neighbourhood'),
-                TextInput::make('download_speed_before_installing'),
-                TextInput::make('download_speed_after_installing'),
-                TextInput::make('upload_speed_before_installing'),
-                TextInput::make('upload_speed_after_installing'),
-                TextInput::make('ping_before_installing'),
-                TextInput::make('ping_after_installing'),
-                TextInput::make('cell_number'),
-                TextInput::make('bandwidth_strength_after_installing'),
-                TextInput::make('signal_db_after_installing'),
-                TextInput::make('card_used'),
-                MarkdownEditor::make('notes'),
-                MarkdownEditor::make('extra_notes'),
+                TextInput::make('customer_name')->label('اسم العميل')->required(),
+                TextInput::make('serial_number')->label('الرقم التسلسي'),
+                TextInput::make('phone_number')->label('رقم الجوال'),
+                TextInput::make('neighbourhood')->label('الحي'),
+                TextInput::make('download_speed_before_installing')->label('سرعة التحميل قبل'),
+                TextInput::make('download_speed_after_installing')->label('سرعة التحميل بعد'),
+                TextInput::make('upload_speed_before_installing')->label('سرعة الرفع قبل'),
+                TextInput::make('upload_speed_after_installing')->label('سرعة الرفع بعد'),
+                TextInput::make('ping_before_installing')->label('البنج قبل'),
+                TextInput::make('ping_after_installing')->label('البنج بعد'),
+                TextInput::make('cell_number')->label('رقم الخلية'),
+                TextInput::make('bandwidth_strength_after_installing')->label('قوة الاشارة بعد التركيب'),
+                TextInput::make('signal_db_after_installing')->label('الديبي بعد التركيب'),
+                TextInput::make('card_used')->label('نوع الشريحة'),
+                MarkdownEditor::make('notes')->label('ملاحظات'),
+                MarkdownEditor::make('extra_notes')->label('ملاحظات اضافة'),
             ])
         ]);
 
@@ -56,11 +59,11 @@ class CustomerResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('customer_name')->sortable()->searchable(),
-                TextColumn::make('serial_number')->searchable(),
-                TextColumn::make('phone_number'),
-                TextColumn::make('neighbourhood'),
-                TextColumn::make('download_speed_before_installing')->sortable()->searchable(),
+                TextColumn::make('customer_name')->label('اسم العميل')->sortable()->searchable(),
+                TextColumn::make('serial_number')->label('الرقم التسلسلي')->searchable(),
+                TextColumn::make('phone_number')->label('رقم الهاتف')->searchable(),
+                TextColumn::make('neighbourhood')->label('الحي')->searchable(),
+                TextColumn::make('download_speed_before_installing')->label('سرعة التحميل قبل')->sortable()->searchable(),
             ])
             ->filters([
                 //

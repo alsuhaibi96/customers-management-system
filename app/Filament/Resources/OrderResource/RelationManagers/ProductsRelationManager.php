@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\OrderResource\RelationManagers;
 
+use App\Services\ServiceStock;
 use App\Services\StockService;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -27,19 +28,13 @@ class ProductsRelationManager extends RelationManager
                     ->reactive()
                     ->afterStateUpdated(function ($state, $livewire,$component,Forms\Set $set) {
                       $product = $component->getRecord();
-                      
-                        $this->updateProductQuantity($product->product_id, $state);
+                      $serviceStock=new ServiceStock();
+                      $serviceStock->updateStock($product->product_id,$state);
                     }),
             ]);
     }
 
-    private function updateProductQuantity($product, $newQuantity)
-    {
-        // Assuming you have a StockService or similar logic to update the stock
-        $stockService = new StockService();  // Create instance of your stock service
-        $stockService->updateStock($product, $newQuantity);
-    }
-
+   
     public function table(Table $table): Table
     {
         return $table
@@ -55,11 +50,9 @@ class ProductsRelationManager extends RelationManager
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

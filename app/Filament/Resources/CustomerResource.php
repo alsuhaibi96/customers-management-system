@@ -64,6 +64,16 @@ class CustomerResource extends Resource
                 TextColumn::make('phone_number')->label('رقم الهاتف')->searchable(),
                 TextColumn::make('neighbourhood')->label('الحي')->searchable(),
                 TextColumn::make('download_speed_before_installing')->label('سرعة التحميل قبل')->sortable()->searchable(),
+                TextColumn::make('download_speed_after_installing')->label('سرعة التحميل بعد')->sortable()->searchable(),
+                TextColumn::make('upload_speed_before_installing')->label('سرعة الرفع قبل')->sortable()->searchable(),
+                TextColumn::make('upload_speed_after_installing')->label('الرفع بعد')->sortable()->searchable(),
+                TextColumn::make('ping_before_installing')->label('البنج قبل')->sortable()->searchable(),
+                TextColumn::make('ping_after_installing')->label('البنج بعد')->sortable()->searchable(),
+                TextColumn::make('cell_number')->label('رقم الخلية')->sortable()->searchable(),
+                TextColumn::make('bandwidth_strength_after_installing')->label('قوة الاشارة بعد التركيب')->sortable()->searchable(),
+                TextColumn::make('signal_db_after_installing')->label('الديبي بعد التركيب')->sortable()->searchable(),
+                TextColumn::make('card_used')->label('نوع الشريحة')->sortable()->searchable(),
+
             ])
             ->filters([
                 //

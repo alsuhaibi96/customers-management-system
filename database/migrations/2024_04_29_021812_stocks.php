@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(!Schema::hasTable('stocks')){
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
             $table->unsignedInteger('quantity');
             $table->timestamps();
         });
+    }
     }
 
     /**

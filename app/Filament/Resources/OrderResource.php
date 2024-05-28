@@ -4,8 +4,11 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers;
+use App\Filament\Resources\OrderResource\RelationManagers\ProductsRelationManager;
 use App\Models\Order;
 use Filament\Forms;
+use Filament\Forms\Components\BelongsToManyMultiSelect;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -34,9 +37,13 @@ class OrderResource extends Resource
                     ->relationship('customer', 'customer_name')
                     ->searchable()
                     ->required(),
+                    Select::make('product_id')
+                    ->relationship('products', 'name') // Assuming 'name' is the display field for products
+                    ->required(),
                     TextInput::make('price')->required()->numeric(),
                     TextInput::make('status'),
                     TextInput::make('city'),
+                       
                     ])
                     //
             ]);
@@ -50,6 +57,7 @@ class OrderResource extends Resource
                 TextColumn::make('customer.customer_name')->sortable()->searchable(),
                 TextColumn::make('price')->sortable()->searchable(),
                 TextColumn::make('status')->sortable()->searchable(),
+
             ])
             ->filters([
                 //
@@ -67,7 +75,7 @@ class OrderResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ProductsRelationManager::class
         ];
     }
 

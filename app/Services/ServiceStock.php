@@ -15,13 +15,27 @@ class ServiceStock
         {
             $currentStock=$stock->quantity;
             $quantityDifference=$orderedQauntity-$oldQuantity;
+
+            if($quantityDifference>$currentStock){
+                return [
+                    'success'=>false,
+                    'message'=>'الكمية التي تم طلبها اكبر من الكمية الموجودة !'
+                ];
+            }
             $newQuantity=$currentStock-$quantityDifference;
             $newQuantity=max($newQuantity,0);
             $stock->update([
                 'quantity'=>$newQuantity
             ]);
-            return $stock;
+            return [
+                'success'=>false,
+                'message'=>'الكمية التي تم طلبها اكبر من الكمية الموجودة !'
+            ];
         }
+        return [
+            'success' => false,
+            'message' => 'Stock not found.',
+        ];
 
     }
 
